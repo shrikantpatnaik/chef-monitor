@@ -1,0 +1,21 @@
+{
+  "mailer": {
+    "mail_from": "<%= @mailer[:mail_from] %>",
+    "mail_to": "<%= @mailer[:mail_to] %>",
+    "smtp_address": "<%= @mailer[:smtp_address] %>",
+    "smtp_domain": "<%= @mailer[:smtp_domain] %>",
+    <% if @mailer[:smtp_username] %>
+    "smtp_username": "<%= @mailer[:smtp_username] %>",
+    <% end %>
+    <% if @mailer[:smtp_password] %>
+    "smtp_password": "<%= @mailer[:smtp_password] %>",
+    <% end %>
+    <% if @mailer[:smtp_authentication] %>
+    "smtp_authentication": "<%= @mailer[:smtp_authentication] %>",
+    <% end %>
+    <% if @mailer[:smtp_enable_starttls_auto] %>
+    "smtp_enable_starttls_auto": "<%= @mailer[:smtp_enable_starttls_auto] %>",
+    <% end %>
+    "smtp_port": "<%= @mailer[:smtp_port] %>"
+  }
+}
