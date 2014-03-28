@@ -43,6 +43,10 @@ end
   check-mtime.rb
   check-tail.rb
   check-fs-writable.rb
+  check-cpu.rb
+  check-ram.rb
+  cpu-usage-metrics.rb
+  memory-metrics.rb
 ].each do |default_plugin|
   cookbook_file "/etc/sensu/plugins/#{default_plugin}" do
     source "plugins/#{default_plugin}"
