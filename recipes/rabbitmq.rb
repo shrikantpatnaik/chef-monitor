@@ -24,5 +24,5 @@ sensu_check "rabbitmq_overview_metrics" do
   command "rabbitmq-overview-metrics.rb"
   handlers ["metrics"]
   standalone true
-  interval 30
+  interval 60
 end

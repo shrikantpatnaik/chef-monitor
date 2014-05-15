@@ -23,7 +23,7 @@ sensu_check "redis_process" do
   command "check-procs.rb -p redis-server -w 2 -c 3 -C 1"
   handlers ["default"]
   standalone true
-  interval 30
+  interval 60
 end
 
 sensu_check "redis_metrics" do
@@ -31,5 +31,5 @@ sensu_check "redis_metrics" do
   command "redis-metrics.rb"
   handlers ["metrics"]
   standalone true
-  interval 30
+  interval 60
 end
