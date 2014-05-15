@@ -28,12 +28,12 @@ class CheckChefCheckIn < Sensu::Plugin::Check::CLI
 
   option :warn,
          :short => '-w WARN',
-         :proc => proc {|a| a.to_i },
+         :proc => proc {|a| a.to_f },
          :default => 1
 
   option :crit,
          :short => '-c CRIT',
-         :proc => proc {|a| a.to_i },
+         :proc => proc {|a| a.to_f },
          :default => 12
 
   option :node_name,
@@ -46,7 +46,7 @@ class CheckChefCheckIn < Sensu::Plugin::Check::CLI
 
   option :client_key,
          :short => '-k CLIENT_KEY',
-         :default => '/etc/chef/client.rb'
+         :default => '/etc/chef/client.pem'
 
   option :exclude,
          :short => '-e EXCLUDE',
@@ -58,8 +58,12 @@ class CheckChefCheckIn < Sensu::Plugin::Check::CLI
     Chef::Config[:chef_server_url] = config[:chef_server_url]
     Chef::Config[:node_name] = config[:node_name]
     Chef::Config[:client_key] = config[:client_key]
-    excluded_nodes = config[:excluded_nodes].split(",")
-        critical = config[:crit]
+    excluded_nodes = if config[:exclude]
+      config[:exclude].split(",")
+    else
+      []
+    end
+    critical = config[:crit]
     warning = config[:warn]
 
     if warning > critical || warning < 0
@@ -73,7 +77,7 @@ class CheckChefCheckIn < Sensu::Plugin::Check::CLI
     wnodes = []
 
     query.search('node', "*:*") do |node|
-      unless excluded_nodes.include?
+      unless excluded_nodes.include?node.name
         all_nodes << node
       end
     end
@@ -93,7 +97,7 @@ class CheckChefCheckIn < Sensu::Plugin::Check::CLI
     elsif wnodes.length > 0
       puts "Warning :"+wnodes.join(',')+" did not check in for "+warning.to_s+" hours"
       exit(WARNING_STATE)
-    elsif cnodes.length == 0 and wnodes.join(',') == 0
+    elsif cnodes.length == 0 and wnodes.length == 0
       puts "OK: All nodes are ok!"
       exit(OK_STATE)
     else

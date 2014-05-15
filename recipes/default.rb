@@ -35,6 +35,11 @@ sensu_client node.name do
   additional client_attributes
 end
 
+gem_package 'chef' do
+  gem_binary '/opt/sensu/embedded/bin/gem'
+  action :install
+end
+
 %w[
   check-procs.rb
   check-banner.rb
