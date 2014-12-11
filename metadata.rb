@@ -18,3 +18,4 @@ end
 
 depends "sensu", "1.0.0"
 depends "sudo"
+depends "uchiwa"
