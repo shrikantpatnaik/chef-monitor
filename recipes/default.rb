@@ -52,6 +52,7 @@ end
   check-ram.rb
   cpu-usage-metrics.rb
   memory-metrics.rb
+  metrics-curl.rb
   check-chef-check-in.rb
 ].each do |default_plugin|
   cookbook_file "/etc/sensu/plugins/#{default_plugin}" do

@@ -1,6 +1,8 @@
 Description
 ===========
 
+This is fork of Sean Porters `chef-monitor` cookbook.
+
 Monitor is a cookbook for monitoring services, using Sensu, a
 monitoring framework. The default recipe installs & configures the
 Sensu client (monitoring agent), as well as common service check
